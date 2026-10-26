@@ -1,0 +1,48 @@
+#######################################################################
+###########################      MCspec     ###########################
+#######################################################################
+# Main TOPAS parameter file. simulate_dataset.py replaces PARAMETERS_FILE with the
+# per-run file (CT, beam energy and angle, number of histories, output file).
+includeFile = PARAMETERS_FILE
+i:Ts/NumberOfThreads = 16
+#######################################################################
+###########################      World      ###########################
+s:Ge/World/Material="Vacuum"
+d:Ge/World/HLX=2. m # Half Length
+d:Ge/World/HLY=2. m
+d:Ge/World/HLZ=2. m
+#######################################################################
+###########################      Beam       ###########################
+s:So/Therapy/Type                     = "Beam"
+s:So/Therapy/Component                = "BeamPosition"
+s:So/Therapy/BeamParticle             = "proton"
+u:So/Therapy/BeamEnergySpread         = 0.757504
+s:So/Therapy/BeamPositionDistribution = "Gaussian"
+s:So/Therapy/BeamPositionCutoffShape  = "Ellipse"
+d:So/Therapy/BeamPositionCutoffX      = 10. cm
+d:So/Therapy/BeamPositionCutoffY      = 10. cm
+s:So/Therapy/BeamAngularDistribution  = "Gaussian"
+d:So/Therapy/BeamAngularCutoffX       = 90. deg
+d:So/Therapy/BeamAngularCutoffY       = 90. deg
+d:So/Therapy/BeamAngularSpreadX       = 0.0032 rad
+d:So/Therapy/BeamAngularSpreadY       = 0.0032 rad
+#######################################################################
+###########################     Physics     ###########################
+sv:Ph/Default/Modules = 6 "g4em-standard_opt4" "g4h-phy_QGSP_BIC_HP" "g4decay" "g4ion-binarycascade" "g4h-elastic_HP" "g4stopping"
+#######################################################################
+###########################     Patient     ###########################
+s:Ge/PatientBox/Parent   = "World"
+s:Ge/PatientBox/Type   = "TsBox"
+s:Ge/PatientBox/Material="Vacuum"
+d:Ge/PatientBox/HLX=1. m # Half Length
+d:Ge/PatientBox/HLY=1. m
+d:Ge/PatientBox/HLZ=1. m
+s:Ge/Patient/Parent   = "PatientBox"
+#######################################################################
+###########################     Scoring     ###########################
+s:Sc/DoseAtPatient/Quantity                  = "DoseToMedium"
+s:Sc/DoseAtPatient/Component                 = "Patient"
+b:Sc/DoseAtPatient/OutputToConsole           = "TRUE"
+s:Sc/DoseAtPatient/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/DoseAtPatient/OutputType                = "binary"
+#######################################################################

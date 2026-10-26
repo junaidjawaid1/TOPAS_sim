@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+
+# generated data
+*.npy
+*.bin
+*.png
+topas_work/
+slurm-*.out
